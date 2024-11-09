@@ -13,6 +13,7 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
+// This is a comment
 app.UseAuthorization();
 
 app.MapControllers();
