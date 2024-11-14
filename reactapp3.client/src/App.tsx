@@ -4,6 +4,7 @@ import './App.css';
 
 //import Login from './Login';
 const Login = React.lazy(() => import('./Login'));
+const CourtTimeSelector = React.lazy(() => import('./CourtTimeSelector'));
 
 interface Forecast {
     date: string;
@@ -54,26 +55,7 @@ function ForecastPage() {
             <p>This component demonstrates fetching data from the server.</p>
             {contents}
             <p><Link to="/login">Go to Login Page</Link></p>
-        </div>
-    );
-}
-
-function QwertyPage() {
-    useEffect(() => {
-        // Change the document title and body attributes
-        document.title = "Qwerty Page - Hello Mate!";
-        document.body.style.backgroundColor = "#f0f8ff"; // Example: change background color
-
-        // Cleanup function to reset changes when leaving the page
-        return () => {
-            document.title = "React App"; // Reset title when leaving the page
-            document.body.style.backgroundColor = ""; // Reset body styles
-        };
-    }, []);
-
-    return (
-        <div>
-            <h2>Hey mate</h2>
+            <p><Link to="/ab">Go to ab Page</Link></p>
         </div>
     );
 }
@@ -88,7 +70,11 @@ function App() {
                         <Login />
                     </Suspense>
                 } />
-                <Route path="/client/qwerty" element={<QwertyPage />} />
+                <Route path="/ab" element={
+                    <Suspense fallback={null}>
+                        <CourtTimeSelector />
+                    </Suspense>
+                } />
             </Routes>
         </Router>
     );

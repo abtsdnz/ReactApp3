@@ -1,19 +1,82 @@
 ﻿#root {
-    max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 0;
     text-align: center;
+    box-sizing: border-box;
+    line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-tr:nth-child(even) {
-    background: #F2F2F2;
+.FixedColumnFixedRow {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0; /* Ensure no external margin */
+    padding: 0; /* Ensure no internal padding */
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    table-layout: auto;
 }
 
-tr:nth-child(odd) {
-    background: #FFF;
+.FixedColumnFixedRow th {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(135deg, #0052cc, #004aad);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #003c8f;
+    z-index: 99;
+    white-space: nowrap;
+    padding: 10px 6px;
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
+    border: 1px solid #e0e0e0;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.FixedColumnFixedRow td {
+    padding: 2px 6px;
+    text-align: center;
+    font-size: 14px;
+    vertical-align: middle;
+    border: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease, transform 0.01s ease;
+}
+
+    .FixedColumnFixedRow td.fixedColumn, .FixedColumnFixedRow th.fixedColumn {
+        width: auto;
+        background-color: #004aad;
+        color: #fff;
+        font-weight: 400;
+        border-left: 2px solid #e0e0e0;
+        white-space: nowrap; /* Prevent text wrapping in the first column */
+    }
+
+    .FixedColumnFixedRow th:not(.fixedColumn), .FixedColumnFixedRow td:not(.fixedColumn) {
+        width: 1%;
+    }
+
+.FixedColumnFixedRow tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.FixedColumnFixedRow tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.FixedColumnFixedRow tr:hover {
+    background-color: #f0f0f0;
+}
+
+.FixedColumnFixedRow td:hover:not(.fixedColumn) {
+    transform: scale(1.08);
+    cursor: pointer;
+}
+
+.FixedColumnFixedRow tr {
+    border-bottom: 1px solid #e0e0e0;
 }

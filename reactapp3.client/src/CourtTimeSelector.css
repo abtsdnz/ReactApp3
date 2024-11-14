@@ -1,0 +1,64 @@
+.no-select {
+    user-select: none;
+}
+
+.selected {
+    background-color: #cce5ff;
+}
+
+.used {
+    background-color: #e2e2e2;
+    color: red;
+    cursor: not-allowed;
+}
+
+.timeSlot {
+    background-color: #f2f2f2;
+    padding: 0px;
+    font-weight: 500;
+    cursor: not-allowed;
+}
+
+.cursorNotAllowed {
+    cursor: not-allowed;
+}
+
+.now-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-bottom: red solid 2px;
+    background-color: rgba(128, 128, 128, 0.45);
+}
+
+.time-display {
+    position: absolute;
+    bottom: 0px;
+    transform: translateX(-50%);
+    color: black;
+    font-size: 0.75em;
+    font-weight: 500;
+    white-space: nowrap;
+    border-left: red solid 2px;
+    border-top: red solid 2px;
+    border-right: red solid 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.hoverbg {
+    background-color: rgba(173, 216, 230, 0.5); /* Light blue with 50% transparency */
+}
+
+tbody td {
+    height: 2em;
+}
+
+tbody tr.hourSlot td {
+    height: 4em;
+}
