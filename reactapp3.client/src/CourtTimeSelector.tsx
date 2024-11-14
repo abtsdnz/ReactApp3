@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./CourtTimeSelector.css";
 
 //let firstSelectedCell: Cell | null = null;
@@ -349,124 +349,70 @@ interface Court {
     name: string;
 }
 
-const initialRows: Row[] = [
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-    { duration: 30 },
-];
-
-const initialCourts: Court[] = [
-    { name: "Court 1" },
-    { name: "Court 2" },
-    { name: "Court 3" },
-    { name: "Court 4" },
-    { name: "Court 5" },
-];
+interface AllocatedSlot {
+    Row: number;
+    Col: number;
+    Contents: string;
+}
 
 const Scheduler: React.FC<{}> = () => {
-    const tableRef = useRef<HTMLTableElement>(null);
-
     const [courts, setCourts] = useState<Court[]>([]);
     const [rows, setRows] = useState<Row[]>([]);
 
-    const ths = useRef<Map<number, React.RefObject<HTMLTableCellElement>>>(new Map());
-    const trs = useRef<Map<[number, number], React.RefObject<HTMLTableRowElement>>>(new Map());
-
-    const BuildScheduler = (courts: Court[], rows: Row[]) => {
-        trs.current.clear();
-
+    const BuildScheduler = (courts: Court[], rows: Row[], allocatedSlots: AllocatedSlot[]) => {
         setCourts(courts);
         setRows(rows);
     };
 
     async function populateScheduler() {
         try {
-            const response = await fetch('schedulerdetails');
+            const response = await fetch('schedulerdetails?date=15-11-2024');
+
+            // Check if the response is OK (status 200-299)
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
             const data = await response.json();
-            const { courts, rows }: { courts: Court[], rows: Row[] } = data;
-            BuildScheduler(courts, rows);
+            const { courts, rows, allocatedSlots }: { courts: Court[], rows: Row[], allocatedSlots: AllocatedSlot[] } = data;
+
+            // Call BuildScheduler with fetched data
+            BuildScheduler(courts, rows, allocatedSlots);
         } catch (error) {
             console.error("Error fetching scheduler data:", error);
         }
     }
 
     useEffect(() => {
-        BuildScheduler(initialCourts, initialRows);
+        populateScheduler();
     }, []);
 
     return (
-        <table ref={tableRef}>
-            <thead>
-                <tr>
-                    <th>Time</th>
-                    {courts.map((court, index) => {
-                        // Initialize a ref for each <th> if not already present
-                        if (!ths.current.has(index)) {
-                            ths.current.set(index, React.createRef<HTMLTableCellElement>());
-                        }
-                        return (<th key={index} ref={ths.current.get(index)} className="cursorNotAllowed">{court.name}</th>);
+        <div>
+            <button onClick={() => populateScheduler()}>Click me</button>
+            <table className='FixedColumnFixedRow'>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        {courts.map((court, index) => {
+                            return (<th key={index} className="cursorNotAllowed">{court.name}</th>);
+                        })}
+                    </tr>
+                </thead>
+                <tbody>
+                    {rows.map((row, index) => {
+                        return (
+                            <tr>
+                                <td>zTime
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        );
                     })}
-                </tr>
-            </thead>
-            <tbody>
-                {rows.map((row, index) => {
-                    return (
-                        <tr>
-                            <td>zTime
-                            </td>
-                            <td>
-                                <button onClick={populateScheduler}>{row.duration}-{index}</button>
-                            </td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table >
+                </tbody>
+            </table >
+        </div>
     );
 }
 

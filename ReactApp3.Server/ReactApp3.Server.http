@@ -3,4 +3,7 @@
 GET {{ReactApp3.Server_HostAddress}}/weatherforecast/
 Accept: application/json
 
+GET {{ReactApp3.Server_HostAddress}}/schedulerdetails/
+Accept: application/json
+
 ###
