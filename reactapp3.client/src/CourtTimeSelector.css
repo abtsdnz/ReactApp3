@@ -1,3 +1,17 @@
+.schedulerContainer {
+    user-select: none;
+    width: 100%;
+}
+
+.arrow-button {
+    background: none;
+    border: none;
+    color: blue;
+    font-size: 18px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 .no-select {
     user-select: none;
 }
@@ -25,7 +39,6 @@
 
 .now-line {
     position: absolute;
-    top: 0;
     left: 0;
     right: 0;
     height: 2px;
@@ -62,3 +75,109 @@ tbody td {
 tbody tr.hourSlot td {
     height: 4em;
 }
+
+.datetime {
+    position: absolute; /* Stays in the same spot even when scrolling */
+    top: 0px;
+    width: 100%;
+    z-index: 1000;
+    background-color: pink;
+    margin: 0px;
+    padding: 0px; /* Optional: Add some padding for better appearance */
+}
+
+.FixedColumnFixedRow {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    border-collapse: collapse; /* Important to maintain rounded corners */
+    margin: 0; /* Ensure no external margin */
+    padding: 0; /* Ensure no internal padding */
+    background-color: #fff;
+    border-radius: 0px;
+    overflow: visible; /* Ensures the corners are clipped */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    table-layout: auto;
+    border: none;
+}
+
+    .FixedColumnFixedRow th {
+        position: sticky;
+        background: linear-gradient(135deg, #0052cc, #004aad);
+        color: #fff;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid #003c8f;
+        z-index: 100;
+        white-space: nowrap;
+        padding: 10px 6px;
+        text-align: center;
+        font-size: 14px;
+        vertical-align: middle;
+        border: none;
+        border-left: 1px solid #e0e0e0;
+        overflow: hidden;
+        z-index: 101;
+    }
+
+        .FixedColumnFixedRow th:first-child {
+            position: sticky;
+            z-index: 106;
+            left: 0px;
+            border-top-left-radius: 6px; /* Rounded top-left corner for the first cell */
+            border-left: none;
+        }
+
+        .FixedColumnFixedRow th:last-child {
+            border-top-right-radius: 6px; /* Rounded top-right corner for the last cell */
+        }
+
+    .FixedColumnFixedRow td {
+        padding: 2px 6px;
+        text-align: center;
+        font-size: 14px;
+        vertical-align: middle;
+        border: 1px solid #e0e0e0;
+        transition: background-color 0.3s ease, transform 0.01s ease;
+    }
+
+        .FixedColumnFixedRow td:first-child {
+            position: sticky;
+            left: 0px;
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        .FixedColumnFixedRow td.fixedColumn, .FixedColumnFixedRow th.fixedColumn {
+            background-color: #004aad;
+            color: #fff;
+            font-weight: 400;
+            border-left: 2px solid #e0e0e0;
+            white-space: nowrap; /* Prevent text wrapping in the first column */
+        }
+
+        .FixedColumnFixedRow th:not(.fixedColumn), .FixedColumnFixedRow td:not(.fixedColumn) {
+            width: 0%;
+        }
+
+    .FixedColumnFixedRow tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .FixedColumnFixedRow tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    .FixedColumnFixedRow tr:hover {
+        background-color: #f0f0f0;
+    }
+
+    .FixedColumnFixedRow td:hover:not(.fixedColumn) {
+        transform: scale(1.08);
+        cursor: pointer;
+    }
+
+    .FixedColumnFixedRow tr {
+        border-bottom: 1px solid #e0e0e0;
+    }

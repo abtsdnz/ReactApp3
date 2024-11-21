@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace ReactApp3.Server.Controllers
 {
     public record Court(string Name);
     public record Row(int Duration);
-    public record AllocatedSlot(int Row, int Col, string Contents);
+    public record AllocatedSlot(int Col, int Row, string Contents);
 
     // SchedulerData model to encapsulate both courts and rows
     public class SchedulerData
@@ -52,9 +53,12 @@ namespace ReactApp3.Server.Controllers
                 return BadRequest("Invalid date. Please ensure the day and month are valid.");
             }
 
-            List<Court> courts = [.. Enumerable.Range(1, 11).Select(index => new Court("Court" + index))];
-            List<Row> rows = [.. Enumerable.Range(1, 48).Select(index => new Row(30))];
+            List<Court> courts = [.. Enumerable.Range(1, 11).Select(index => new Court("Court " + index))];
+            List<Row> rows = [.. Enumerable.Range(1, 48).Select(index => new Row(index == 1 ? 60 : 30))];
             List<AllocatedSlot> allocatedSlots = [];
+
+            allocatedSlots.Add(new AllocatedSlot(0, 0, "0-0"));
+            allocatedSlots.Add(new AllocatedSlot(4, 1, "4-1"));
 
             // Encapsulate courts and rows into SchedulerData
             var schedulerData = new SchedulerData
