@@ -38,6 +38,12 @@ export default defineConfig({
         }
     },
     server: {
+        host: '0.0.0.0', // Listen on all IPs, making the server accessible externally
+        port: 443, // Use HTTPS port 443 for default HTTPS traffic
+        https: {
+            key: fs.readFileSync(keyFilePath),
+            cert: fs.readFileSync(certFilePath),
+        },
         proxy: {
             '^/weatherforecast': {
                 target,
@@ -47,14 +53,12 @@ export default defineConfig({
                 target,
                 secure: false
             }
-        },
-        port: 5173,
-        https: {
-            key: fs.readFileSync(keyFilePath),
-            cert: fs.readFileSync(certFilePath),
         }
     }
 });
+
+
+
 
 
 
