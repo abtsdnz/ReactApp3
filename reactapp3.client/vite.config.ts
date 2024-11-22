@@ -39,7 +39,7 @@ export default defineConfig({
     },
     server: {
         host: '0.0.0.0', // Listen on all IPs, making the server accessible externally
-        port: 443, // Use HTTPS port 443 for default HTTPS traffic
+        port: 1899, // Use HTTPS port 443 for default HTTPS traffic
         https: {
             key: fs.readFileSync(keyFilePath),
             cert: fs.readFileSync(certFilePath),
